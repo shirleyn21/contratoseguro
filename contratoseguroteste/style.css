@@ -1,0 +1,388 @@
+/* © 2025 ContratoSeguro. Todos os direitos reservados. */
+
+/* ====================================================== */
+/* 1. CONFIGURAÇÕES GERAIS                                 */
+/* ====================================================== */
+* {
+  box-sizing: border-box;
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+}
+
+html, body {
+  margin: 0;
+  padding: 0;
+  min-height: 100vh;
+  width: 100%;
+}
+
+body {
+  background-color: #f4f6f8;
+  color: #0b1a2a;
+}
+
+/* ====================================================== */
+/* 2. LAYOUT PRINCIPAL — Ocupa a tela inteira             */
+/* ====================================================== */
+.layout-principal {
+  display: flex;
+  flex-direction: column;   /* Celular: um embaixo do outro */
+  width: 100%;
+  min-height: 100vh;
+  gap: 0;
+}
+
+/* Computador/Notebook: lado a lado, ocupando a tela toda */
+@media (min-width: 768px) {
+  .layout-principal {
+    flex-direction: row;
+    align-items: stretch;    /* Estica os dois lados pela altura toda */
+  }
+
+  /* Lado esquerdo: formulário com rolagem própria */
+  .area-formulario {
+    flex: 1;                 /* Ocupa metade da tela */
+    max-width: 50%;
+    height: 100vh;
+    overflow-y: auto;        /* Rola sozinho se for grande */
+  }
+
+  /* Lado direito: contrato com rolagem própria */
+  .area-contrato {
+    flex: 1;                 /* Ocupa a outra metade */
+    height: 100vh;
+    overflow-y: auto;
+  }
+}
+
+/* ====================================================== */
+/* 3. LADO ESQUERDO — FORMULÁRIO                          */
+/* ====================================================== */
+.area-formulario {
+  background: white;
+  padding: 30px 20px;
+}
+
+/* Centraliza o conteúdo do formulário e limita a largura
+   para não ficar esticado demais em telas grandes */
+.form-interno {
+  max-width: 480px;
+  margin: 0 auto;
+  width: 100%;
+}
+
+.cabecalho-form {
+  text-align: center;
+  margin-bottom: 25px;
+}
+
+.logo {
+  font-size: 32px;
+  font-weight: 900;
+  margin: 0 0 5px 0;
+  color: #0b1a2a;
+  letter-spacing: -1px;
+}
+.logo span { color: #00eb8b; }
+
+.subtitulo {
+  color: #718096;
+  font-size: 14px;
+  margin: 0;
+}
+
+/* Barra de progresso */
+.barra-progresso {
+  width: 100%;
+  background: #e2e8f0;
+  height: 8px;
+  border-radius: 4px;
+  margin-bottom: 8px;
+  overflow: hidden;
+}
+.progresso-verde {
+  background: #00eb8b;
+  height: 100%;
+  border-radius: 4px;
+  transition: width 0.4s ease-in-out;
+}
+.etapa-texto {
+  color: #00eb8b;
+  font-weight: bold;
+  font-size: 11px;
+  letter-spacing: 1px;
+}
+
+h2 { margin-top: 15px; margin-bottom: 20px; font-size: 22px; }
+
+/* ====================================================== */
+/* 4. CAMPOS E BOTÕES                                     */
+/* ====================================================== */
+.campo { margin-bottom: 20px; }
+
+label {
+  display: block;
+  margin-bottom: 8px;
+  font-weight: 600;
+  font-size: 14px;
+  color: #1a202c;
+}
+
+input[type="text"],
+input[type="number"],
+input[type="tel"],
+input[type="email"],
+select {
+  width: 100%;
+  padding: 14px;
+  border: 1px solid #cbd5e1;
+  border-radius: 8px;
+  font-size: 15px;
+  background-color: #f8fafc;
+  transition: 0.2s;
+}
+
+input:focus, select:focus {
+  outline: none;
+  border-color: #00eb8b;
+  background-color: #fff;
+  box-shadow: 0 0 0 3px rgba(0, 235, 139, 0.2);
+}
+
+.grupo-prazo { display: flex; gap: 15px; }
+.grupo-prazo > div,
+.grupo-prazo > input,
+.grupo-prazo > select { flex: 1; }
+
+.botao-avancar {
+  width: 100%;
+  background: #0b1a2a;
+  color: white;
+  border: none;
+  padding: 16px;
+  border-radius: 8px;
+  font-size: 16px;
+  font-weight: bold;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  margin-top: 10px;
+}
+.botao-avancar:hover {
+  background: #00eb8b;
+  color: #0b1a2a;
+  transform: translateY(-2px);
+  box-shadow: 0 5px 15px rgba(0, 235, 139, 0.3);
+}
+
+.btn-wa { background: #25D366 !important; color: white !important; }
+.btn-wa:hover { background: #1ebe5d !important; color: white !important; }
+
+.btn-limpar {
+  padding: 8px 16px;
+  font-size: 12px;
+  border: 1.5px solid #e2e8f0;
+  border-radius: 6px;
+  cursor: pointer;
+  background: white;
+  color: #4a5568;
+  font-weight: 600;
+  transition: all .2s;
+}
+.btn-limpar:hover { border-color: #fc8181; color: #e53e3e; }
+
+/* ====================================================== */
+/* 5. LADO DIREITO — FOLHA DO CONTRATO                    */
+/* ====================================================== */
+.area-contrato {
+  background: #f4f6f8;
+  padding: 30px 20px;
+  overflow-x: hidden;
+}
+
+.folha-papel {
+  background: white;
+  padding: 40px;
+  border-radius: 4px;
+  box-shadow: 0 10px 30px rgba(0,0,0,0.1);
+  border-top: 6px solid #0b1a2a;
+  max-width: 650px;
+  margin: 0 auto;
+  width: 100%;
+  overflow-wrap: break-word;
+  word-wrap: break-word;
+}
+
+.titulo-doc {
+  text-align: center;
+  margin-top: 0;
+  color: #718096;
+  font-size: 16px;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+}
+
+.data-doc {
+  text-align: right;
+  color: #a0aec0;
+  font-size: 13px;
+  margin-bottom: 40px;
+}
+
+.texto-juridico {
+  font-family: 'Times New Roman', Times, serif;
+  font-size: 16.5px;
+  line-height: 1.7;
+  color: #000;
+  overflow-wrap: break-word;
+  word-wrap: break-word;
+}
+.texto-juridico strong {
+  font-family: 'Arial', sans-serif;
+  font-size: 14px;
+}
+
+.destaque {
+  color: #0b1a2a;
+  font-weight: bold;
+  background: #e6fffa;
+  padding: 2px 6px;
+  border-bottom: 1px dashed #00eb8b;
+  -webkit-box-decoration-break: clone;
+  box-decoration-break: clone;
+  overflow-wrap: break-word;
+}
+
+/* ====================================================== */
+/* 6. TELAS EXTRAS (Gate, Assinatura, Cliente)            */
+/* ====================================================== */
+.tela-extra-wrap {
+  min-height: 100vh;
+  width: 100%;
+  padding: 30px 16px;
+  display: flex;
+  align-items: flex-start;
+  justify-content: center;
+}
+
+.tela-card {
+  width: 100%;
+  max-width: 520px;
+  background: white;
+  border-radius: 16px;
+  padding: 32px;
+  box-shadow: 0 8px 32px rgba(0,0,0,0.1);
+  text-align: center;
+}
+.tela-card h2 { font-size: 22px; margin-bottom: 0; }
+
+/* Gate: planos */
+.gate-planos {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 14px;
+  margin-bottom: 24px;
+  text-align: left;
+}
+@media (max-width: 480px) {
+  .gate-planos { grid-template-columns: 1fr; }
+}
+.gate-plano {
+  border: 2px solid #e2e8f0;
+  border-radius: 12px;
+  padding: 18px;
+  position: relative;
+}
+.gate-plano.destaque { border-color: #00eb8b; background: #f0fff4; }
+.gate-pop {
+  position: absolute;
+  top: -12px;
+  left: 50%;
+  transform: translateX(-50%);
+  background: #00eb8b;
+  color: #0b1a2a;
+  font-size: 10px;
+  font-weight: 700;
+  padding: 2px 10px;
+  border-radius: 20px;
+  white-space: nowrap;
+}
+.gate-nome  { font-size: 14px; font-weight: 700; margin-bottom: 4px; }
+.gate-preco { font-size: 28px; font-weight: 700; color: #0b1a2a; margin-bottom: 3px; }
+.gate-preco small { font-size: 13px; font-weight: 400; color: #718096; }
+.gate-lista { list-style: none; padding: 0; margin: 10px 0 0; }
+.gate-lista li { font-size: 12px; padding: 3px 0; color: #2d3748; }
+
+/* Passos numerados */
+.passo-bloco {
+  display: flex;
+  gap: 16px;
+  align-items: flex-start;
+  background: #f7fafc;
+  border: 1px solid #e2e8f0;
+  border-radius: 12px;
+  padding: 20px;
+  margin-bottom: 14px;
+  text-align: left;
+}
+.passo-num {
+  width: 36px;
+  height: 36px;
+  border-radius: 50%;
+  background: #00eb8b;
+  color: #0b1a2a;
+  font-size: 18px;
+  font-weight: 700;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+}
+.passo-corpo h3 { font-size: 16px; margin-bottom: 4px; }
+.passo-corpo p  { color: #718096; font-size: 13px; margin-bottom: 0; }
+
+/* Canvas de assinatura */
+.canvas-area {
+  position: relative;
+  background: #fafafa;
+  border: 2px dashed #e2e8f0;
+  border-radius: 8px;
+  overflow: hidden;
+  margin-top: 12px;
+}
+.canvas-hint {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  color: #a0aec0;
+  font-size: 15px;
+  pointer-events: none;
+  text-align: center;
+}
+
+/* ====================================================== */
+/* 7. IMPRESSÃO                                           */
+/* ====================================================== */
+@media print {
+  body { background: white; }
+  .area-formulario,
+  .barra-progresso,
+  .cabecalho-form { display: none !important; }
+  .layout-principal { display: block; }
+  .area-contrato { position: static !important; overflow: visible !important; height: auto !important; }
+  .tela-extra-wrap { padding: 0; display: block; }
+  .tela-card { box-shadow: none; padding: 0; border-radius: 0; max-width: 100%; }
+  .passo-bloco { display: none !important; }
+  #secao-acoes-prof, #secao-pos-assinatura { display: none !important; }
+  .folha-papel {
+    box-shadow: none;
+    border: 2px solid #0b1a2a;
+    max-width: 100%;
+    page-break-inside: avoid;
+  }
+}
+
+/* ====================================================== */
+/* 8. UTILITÁRIOS                                         */
+/* ====================================================== */
+.escondido { display: none !important; }
+.texto-auxiliar { color: #718096; font-size: 13px; }
